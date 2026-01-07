@@ -1,0 +1,44 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    // Videos folder rules
+    match /videos/{projectId}/{fileName} {
+      // Allow read if user is authenticated and has access to the corresponding project
+      allow read: if request.auth != null && (
+        // Check if user is the owner or collaborator of the project
+        // This requires a custom function or additional logic in your app
+        request.auth != null
+      );
+      
+      // Allow write if user is the owner of the project
+      allow write: if request.auth != null && (
+        // Check if user is the owner of the project
+        // This requires a custom function or additional logic in your app
+        request.auth != null
+      );
+    }
+    
+    // Thumbnails folder rules
+    match /thumbnails/{projectId}/{fileName} {
+      // Allow read if user is authenticated and has access to the corresponding project
+      allow read: if request.auth != null && (
+        // Check if user is the owner or collaborator of the project
+        // This requires a custom function or additional logic in your app
+        request.auth != null
+      );
+      
+      // Allow write if user is the owner of the project
+      allow write: if request.auth != null && (
+        // Check if user is the owner of the project
+        // This requires a custom function or additional logic in your app
+        request.auth != null
+      );
+    }
+    
+    // Public assets (if any)
+    match /public/{fileName} {
+      allow read: if true; // Public read access
+      allow write: if false; // No write access
+    }
+  }
+}
